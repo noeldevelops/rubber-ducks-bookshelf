@@ -1,16 +1,16 @@
 ---
-import Star from './Star.astro';
+import Star from "./Star.astro";
 
 interface Props {
     name: string;
 }
 
+// Name is a shortened version of book title
 const { name } = Astro.props;
-
 ---
 
-<fieldset>
-    <legend class="label"
+<fieldset name={name} >
+    <legend class="label" 
         >On a scale of 1 to 7 how much do you want to read this book?</legend
     >
     <div class="inputs">
@@ -29,14 +29,13 @@ const { name } = Astro.props;
     </div>
 </fieldset>
 
-
 <style>
     fieldset {
         margin: 1rem;
         padding: 1rem;
     }
     fieldset:invalid {
-      border-color: red;
+        border-color: red;
     }
     legend {
         font-size: 12px;
