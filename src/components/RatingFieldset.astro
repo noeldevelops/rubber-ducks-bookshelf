@@ -10,15 +10,17 @@ const { name } = Astro.props;
 ---
 
 <fieldset>
-    <legend class="label">On a scale of 1 to 7 how much do you want to read this book?</legend>
+    <legend class="label"
+        >On a scale of 1 to 7 how much do you want to read this book?</legend
+    >
     <div class="inputs">
-        <Star title="7 Stars" name={name} value="7" />
-        <Star title="6 Stars" name={name} value="6" />
-        <Star title="5 Stars" name={name} value="5" />
-        <Star title="4 Stars" name={name} value="4" />
-        <Star title="3 Stars" name={name} value="3" />
-        <Star title="2 Stars" name={name} value="2" />
-        <Star title="1 Star" name={name} value="1" />
+        <Star name={name} value="7" />
+        <Star name={name} value="6" />
+        <Star name={name} value="5" />
+        <Star name={name} value="4" />
+        <Star name={name} value="3" />
+        <Star name={name} value="2" />
+        <Star name={name} value="1" />
     </div>
     <div class="hints">
         <p>Would NOT read</p>

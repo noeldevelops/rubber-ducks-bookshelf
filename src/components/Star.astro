@@ -1,18 +1,17 @@
 ---
 interface Props {
-    title: string;
     name: string;
     value: string;
 }
 
-const { title, name, value } = Astro.props;
+const {  name, value } = Astro.props;
 const id = `${name}-${value}`;
 ---
 
 <input class="star-radio" type="radio" {name} {id} {value} required>
 <label for={id}>
     <svg>
-        <title>{title}</title>
+        <title>{value}</title>
         <use xlink:href="#star"></use>
     </svg>
 </label>

@@ -1,6 +1,6 @@
 ---
-import Card from './Card.astro';
-import type { Book } from '../utils/googleSheets';
+import Card from "./Card.astro";
+import type { Book } from "../utils/googleSheets";
 
 interface Props {
   year: number;
@@ -9,38 +9,83 @@ interface Props {
 
 const { books } = Astro.props;
 ---
-<form id="all-books" name="2025-votes" method="POST" data-netlify=true>
+
+<form id="all-books" name="2025-votes" method="POST" data-netlify="true">
   <div>
     <label for="name">Name or Rubber Ducks Slack Handle:</label>
     <input type="text" id="name" name="name" required minlength="2" />
-    <p class="help">Only used for spam and duplicate prevention, how you vote will remain anonymous. :)</p>
-  </div>
-  <div>  <button id="submit-btn" type="submit" title="Save choices">Submit Vote</button>
+    <p class="help">
+      Only used for spam and duplicate prevention, how you vote will remain
+      anonymous. :)
+    </p>
   </div>
   <div>
-  <p class="description">Please rate each book 1 - 7 stars based on how much you want to read it this year.</p>	
-  <div class="books-container">
-      {books.map(book => (
-        <Card 
-          title={book.title}
-          body={`by ${book.author}`}
-          href={book.googleBooksUrl}
-        />
-      ))}
+    <button id="submit-btn" type="submit" title="Save choices"
+      >Submit Vote</button
+    >
+    <button type="button" id="auto-fill">Auto Fill with "meh"</button>
   </div>
-</div>
+  <div>
+    <p class="description">
+      Please rate each book 1 - 7 stars based on how much you want to read it
+      this year.
+    </p>
+    <div class="books-container">
+      {
+        books.map((book) => (
+          <Card
+            title={book.title}
+            body={`by ${book.author}`}
+            href={book.googleBooksUrl}
+          />
+        ))
+      }
+    </div>
+  </div>
 </form>
+<script>
+  document.querySelector("#all-books")?.addEventListener("submit", (e) => {
+    e.preventDefault();
 
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData);
+
+    console.log("Form submission data:", data);
+
+    // Allow the form to submit normally after logging
+    (e.target as HTMLFormElement).submit();
+  });
+  document.querySelector("#auto-fill")?.addEventListener("click", () => {
+    // Get all radio groups by finding all radio inputs and grouping by name
+    const radioGroups = document.querySelectorAll('input[type="radio"]');
+    const groupNames = new Set([...radioGroups].map(radio => radio.getAttribute('name')));
+
+    // For each radio group name
+    groupNames.forEach(name => {
+      // Find if any radio in this group is checked
+      const isGroupEmpty = ![...radioGroups].filter(radio => radio.getAttribute('name') === name)
+        .some(radio => (radio as HTMLInputElement).checked);
+      
+      // If none are checked, select the "meh" (value 4) option
+      if (isGroupEmpty) {
+        const mehRadio = document.querySelector(`input[type="radio"][name="${name}"][value="4"]`);
+        if (mehRadio) {
+          (mehRadio as HTMLInputElement).checked = true;
+        }
+      }
+    });
+  });
+</script>
 
 <style>
-  	#all-books {
-		display: block;
-	}
+  #all-books {
+    display: block;
+  }
   .books-container {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-	  overflow-y: auto;
+    overflow-y: auto;
     padding-bottom: 1rem;
     padding-top: 0;
     padding-left: 1rem;
