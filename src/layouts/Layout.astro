@@ -18,17 +18,19 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<header>
-			<h1>Rubber Ducks Bookshelf</h1>
-			<p class="description">Visual record of the books we've read in <a href="https://www.linkedin.com/groups/13884181/" target="_blank">Rubber Ducks</a> Book Club, since 2020. Links go to Google Books. Source code and more information on <a href="https://github.com/noeldevelops/rubber-ducks-bookshelf" target="_blank">GitHub.</a></p>	
+			<h1>2025 Voting Ballot - Rubber Ducks Book Club</h1>
 		</header>
 		<slot />
 	</body>
+	<svg style="display: none;">
+		<symbol id="star" viewBox="0 0 1024 1024"><polygon points="512 0 627 354 999 354 698 572 813 926 512 708 211 926 326 572 25 354 397 354 512 0"/></symbol>
+	  </svg>
 </html>
 <style is:global>
 	:root {
-		--accent: #F0AD3D;
+		--accent: #942822;
 		--accent-light: #f2d6a6;
-		--accent-dark: #D52E26;
+		--accent-dark: #1d1c1c;
 		--accent-gradient: linear-gradient(
 			45deg,
 			var(--accent),
@@ -38,22 +40,16 @@ const { title } = Astro.props;
 	}
 	html {
 		font-family: system-ui, sans-serif;
-		background: #120a01;
+		color: var(--accent-dark);
+		background: #F5F4F4;
 		background-size: 224px;
-		color: #fff;
-	}
-	header {
-		position: sticky;
-		top: 0;
-		background: #120a01;
-		padding: 1rem;
-		z-index: 10;
+		padding: 0 2rem;
 	}
 	header h1 {
-		color: var(--accent-light);
+		color: var(--accent);
 		margin-bottom: 0.5rem;
 	}
 	header a {
-		color: var(--accent-light);
+		color: var(--accent);
 	}
 </style>

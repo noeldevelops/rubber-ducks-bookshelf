@@ -17,7 +17,7 @@ interface YearlyBooks {
   books: Book[];
 }
 
-const SPREADSHEET_ID = '1xZfBupIyI0MezvG-8iACqHrzTrlNt4jqRYGuUZdrp-A';
+const SPREADSHEET_ID = '1C2TuZrF9KFcqwZFIEHbCFDLL1k_T6DkwOGk7yw6gRN4';
 
 function authenticate() {
   const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
@@ -48,13 +48,14 @@ async function getAllBooks(): Promise<YearlyBooks[]> {
         .filter(sheet => !isNaN(Number(sheet.title))) // Only process sheets with numeric names
         .map(async sheet => {
           const rows = await sheet.getRows();
+          // console.log(rows);
           return {
             year: parseInt(sheet.title),
             books: rows.map((row: GoogleSpreadsheetRow) => ({
               title: row.get('Title'),
               author: row.get('Author'),
-              googleBooksUrl: row.get('Link on Google Books'),
-              month: row.get('Month'),
+              googleBooksUrl: row.get('Google Link'),
+              month: row.get('Date Published'),
             }))
             .filter(book => book.title?.trim()) // Filter out any rows with no title - means we didn't read a book that month
           };

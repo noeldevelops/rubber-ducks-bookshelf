@@ -1,33 +1,40 @@
 ---
+import RatingFieldset from './RatingFieldset.astro';
+
 interface Props {
 	title: string;
 	body: string;
 	href: string;
-	month: string;
 }
 
-const { href, title, body, month } = Astro.props;
+const { href, title, body } = Astro.props;
 ---
 
 <li class="link-card">
 	<a href={href} target="_blank">
-		<span class="month">{month}</span>
 		<h3>
 			{title}
 			<span class="icon">↗</span>
 		</h3>
-		<p>
-			{body}
-		</p>
 	</a>
+	<p>
+		{body}
+	</p>
+	<details>
+		<summary>Details</summary>
+		Something small enough to escape casual notice.
+	  </details>
+	<RatingFieldset name={`${title.toLowerCase().replace(/\s+/g, '-').substring(0,10)}`} />
 </li>
 <style>
+
 	.link-card {
-		min-width: 200px;
+		max-width: 300px;
 		list-style: none;
 		display: flex;
-		padding: 1px;
-		background-color: #23262d;
+		flex-direction: column;
+		padding: 10px;
+		background-color: #FFFFFE;
 		background-image: none;
 		background-size: 400%;
 		border-radius: 7px;
@@ -36,13 +43,10 @@ const { href, title, body, month } = Astro.props;
 		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 	}
 	.link-card > a {
-		width: 100%;
 		text-decoration: none;
 		line-height: 1.4;
-		padding: calc(1.5rem - 1px);
+		padding: 10px;
 		border-radius: 8px;
-		color: white;
-		background-color: #2d2923;
 		opacity: 0.8;
 	}
 	h3 {
@@ -54,19 +58,7 @@ const { href, title, body, month } = Astro.props;
 		margin-top: 0.5rem;
 		margin-bottom: 0;
 	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.link-card:is(:hover, :focus-within) h3 {
-		color: var(--accent);
-	}
-	.link-card:is(:hover, :focus-within) h3 > .icon {
-		transform: translateX(5px);
-	}
-	.month {
-		font-size: 0.75rem;
-		font-weight: 600;
-		color: var(--accent-light);
+	 a:hover, a:hover .icon, a:focus-within. a:focus-within .icon {
+		color: rgb(175, 150, 150);
 	}
 </style>

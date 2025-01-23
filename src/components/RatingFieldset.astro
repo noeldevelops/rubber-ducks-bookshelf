@@ -1,0 +1,62 @@
+---
+import Star from './Star.astro';
+
+interface Props {
+    name: string;
+}
+
+const { name } = Astro.props;
+
+---
+
+<fieldset>
+    <legend class="label">On a scale of 1 to 7 how much do you want to read this book?</legend>
+    <div class="inputs">
+        <Star title="7 Stars" name={name} value="7" required />
+        <Star title="6 Stars" name={name} value="6" />
+        <Star title="5 Stars" name={name} value="5" />
+        <Star title="4 Stars" name={name} value="4" />
+        <Star title="3 Stars" name={name} value="3" />
+        <Star title="2 Stars" name={name} value="2" />
+        <Star title="1 Star" name={name} value="1" />
+    </div>
+    <div class="hints">
+        <p>Would NOT read</p>
+        <p>Meh</p>
+        <p>Would LOVE TO read</p>
+    </div>
+</fieldset>
+
+
+<style>
+    fieldset {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    fieldset:invalid {
+      border-color: red;
+    }
+    legend {
+        font-size: 12px;
+    }
+    .inputs {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+    .hints {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .hints > p {
+        font-size: 10px;
+        font-weight: 700;
+        display: inline;
+        max-width: 28px;
+    }
+    .hints > p:last-child() {
+        text-align: right;
+        white-space: break;
+    }
+</style>

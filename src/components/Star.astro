@@ -1,0 +1,50 @@
+---
+interface Props {
+    title: string;
+    name: string;
+    value: string;
+    required?: boolean;
+}
+
+const { title, name, value, required = false } = Astro.props;
+const id = `${name}-${value}`;
+---
+
+<input class="star-radio" type="radio" {name} {id} {value} {required}>
+<label for={id}>
+    <svg>
+        <title>{title}</title>
+        <use xlink:href="#star"></use>
+    </svg>
+</label>
+
+<style>
+    svg {
+        fill: none;
+    }
+    .star-radio {
+        height: 1px;
+        opacity: 0;
+        position: absolute;
+        width: 1px;
+    }
+    .star-radio:checked ~ label svg {
+        fill: gold;
+    }
+    .star-radio:not(:checked):hover ~ label svg {
+        fill: orange;
+    }
+    label {
+        display: block;
+        cursor: pointer;
+        width: 2em;
+        height: 2em;
+    }
+    svg {
+        max-width: 100%;
+        max-height: 100%;
+        fill: rgba(#000, 0.0625%);
+        stroke-width: 20;
+        stroke: #000;
+    }
+</style> 

@@ -1,23 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import List from '../components/List.astro';
+import List from '../components/Form.astro';
 import { getAllBooks } from '../utils/googleSheets';
 
 const yearlyBooks = await getAllBooks();
 ---
 
 <Layout title="Rubber Ducks Book Club">
-	<main>
-		{yearlyBooks.map(oneYear => (
+	{yearlyBooks.length > 0 ? (
+		yearlyBooks.map((oneYear) => (
 			<List year={oneYear.year} books={oneYear.books} />
-		))}
-	</main>
+		))
+	) : (
+		<p>Error: No books found.</p>
+	)}
 </Layout>
 
-<style>
-	main {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-</style>
