@@ -1,18 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import List from '../components/Form.astro';
-import { getAllBooks } from '../utils/googleSheets';
+import Layout from "../layouts/Layout.astro";
+import List from "../components/Form.astro";
+import { getAllBooks } from "../utils/googleSheets";
 
-const yearlyBooks = await getAllBooks();
+const recommendedBooks = await getAllBooks();
 ---
 
 <Layout title="Rubber Ducks Book Club">
-	{yearlyBooks.length > 0 ? (
-		yearlyBooks.map((oneYear) => (
-			<List year={oneYear.year} books={oneYear.books} />
-		))
-	) : (
-		<p>Error: No books found.</p>
-	)}
+	{
+		recommendedBooks.length > 0 ? (
+			<List books={recommendedBooks} />
+		) : (
+			<p>Error: No books found.</p>
+		)
+	}
 </Layout>
-

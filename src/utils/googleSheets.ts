@@ -6,15 +6,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 interface Book {
-  title: string;
-  author: string;
   googleBooksUrl: string;
-  month: string;
-}
-
-interface YearlyBooks {
-  year: number;
-  books: Book[];
+  title: string;
+  subtitle: string;
+  author: string;
+  description: string;
+  categories: string[];
+  pubDate: string;
 }
 
 const SPREADSHEET_ID = '1C2TuZrF9KFcqwZFIEHbCFDLL1k_T6DkwOGk7yw6gRN4';
@@ -36,34 +34,28 @@ function authenticate() {
   });
 }
 
-async function getAllBooks(): Promise<YearlyBooks[]> {
+async function getAllBooks(): Promise<Book[]> {
   try {
     const auth = authenticate();
     const doc = new GoogleSpreadsheet(SPREADSHEET_ID, auth);
     await doc.loadInfo();
 
-    // Get all sheets and convert their titles (the year) to numbers
-    const yearlyData = await Promise.all(
-      Object.values(doc.sheetsByTitle)
-        .filter(sheet => !isNaN(Number(sheet.title))) // Only process sheets with numeric names
-        .map(async sheet => {
-          const rows = await sheet.getRows();
-          // console.log(rows);
-          return {
-            year: parseInt(sheet.title),
-            books: rows.map((row: GoogleSpreadsheetRow) => ({
-              title: row.get('Title'),
-              author: row.get('Author'),
-              googleBooksUrl: row.get('Google Link'),
-              month: row.get('Date Published'),
-            }))
-            .filter(book => book.title?.trim()) // Filter out any rows with no title - means we didn't read a book that month
-          };
-        })
-    );
+    const sheet = doc.sheetsByTitle['recs'];
+    if (!sheet) {
+      throw new Error('Sheet "recs" not found');
+    }
 
-    // Sort by year in descending order (most recent first)
-    return yearlyData.sort((a, b) => b.year - a.year);
+    const rows = await sheet.getRows();
+    return rows
+      .map((row: GoogleSpreadsheetRow) => ({
+        title: row.get('Title'),
+        author: row.get('Full Author'),
+        googleBooksUrl: row.get('Google Link'),
+        subtitle: row.get('Subtitle') || '',
+        description: row.get('Description') || '',
+        categories: (row.get('Categories') || '').split(',').map(c => c.trim()).filter(Boolean),
+        pubDate: row.get('Date Published') || '',
+      }))
   } catch (error) {
     console.error('Error fetching books:', error);
     return [];
@@ -71,4 +63,4 @@ async function getAllBooks(): Promise<YearlyBooks[]> {
 }
 
 export { getAllBooks };
-export type { Book, YearlyBooks }; 
+export type { Book }; 
