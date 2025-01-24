@@ -3,47 +3,63 @@ import Card from "./Card.astro";
 import type { Book } from "../utils/googleSheets";
 
 interface Props {
-  year: number;
   books: Book[];
 }
 
 const { books } = Astro.props;
 ---
 
+<button id="scroll-top" aria-label="Scroll to top" title="Scroll to top"
+  >↑</button
+>
 <form id="all-books" name="2025-votes" method="POST" data-netlify="true">
   <div>
     <label for="name">Name or Rubber Ducks Slack Handle:</label>
     <input type="text" id="name" name="name" required minlength="2" />
     <p class="help">
-      Only used for spam and duplicate prevention, how you vote will remain
-      anonymous. :)
+      Only to prevent spam and duplicated submissions. How you vote will remain
+      anonymous. :) 
     </p>
   </div>
   <div>
-    <button id="submit-btn" type="submit" title="Save choices"
+    <button class="btn" id="submit-btn" type="submit" title="Save choices"
       >Submit Vote</button
     >
-    <button type="button" id="auto-fill">Auto Fill with "meh"</button>
+    <!-- For debugging/testing
+      <button class="btn" type="button" id="auto-fill"
+      >Auto-fill with 4 stars ("meh")</button
+    > -->
   </div>
   <div>
-    <p class="description">
-      Please rate each book 1 - 7 stars based on how much you want to read it
-      this year.
+    <p class="description mulish-bold">
+      Rate each book based on how much you want to read it this year:
     </p>
     <div class="books-container">
-      {
-        books.map((book) => (
-          <Card
-            title={book.title}
-            body={`by ${book.author}`}
-            href={book.googleBooksUrl}
-          />
-        ))
-      }
+      {books.map((book) => <Card {book} />)}
     </div>
   </div>
 </form>
 <script>
+  const scrollButton = document.getElementById("scroll-top");
+
+  window.addEventListener("scroll", () => {
+    const scrollPercentage =
+      window.scrollY /
+      (document.documentElement.scrollHeight - window.innerHeight);
+
+    if (scrollPercentage > 0.3) {
+      scrollButton?.style.setProperty("display", "block");
+    } else {
+      scrollButton?.style.setProperty("display", "none");
+    }
+  });
+
+  scrollButton?.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
   document.querySelector("#all-books")?.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -58,17 +74,22 @@ const { books } = Astro.props;
   document.querySelector("#auto-fill")?.addEventListener("click", () => {
     // Get all radio groups by finding all radio inputs and grouping by name
     const radioGroups = document.querySelectorAll('input[type="radio"]');
-    const groupNames = new Set([...radioGroups].map(radio => radio.getAttribute('name')));
+    const groupNames = new Set(
+      [...radioGroups].map((radio) => radio.getAttribute("name")),
+    );
 
     // For each radio group name
-    groupNames.forEach(name => {
+    groupNames.forEach((name) => {
       // Find if any radio in this group is checked
-      const isGroupEmpty = ![...radioGroups].filter(radio => radio.getAttribute('name') === name)
-        .some(radio => (radio as HTMLInputElement).checked);
-      
+      const isGroupEmpty = ![...radioGroups]
+        .filter((radio) => radio.getAttribute("name") === name)
+        .some((radio) => (radio as HTMLInputElement).checked);
+
       // If none are checked, select the "meh" (value 4) option
       if (isGroupEmpty) {
-        const mehRadio = document.querySelector(`input[type="radio"][name="${name}"][value="4"]`);
+        const mehRadio = document.querySelector(
+          `input[type="radio"][name="${name}"][value="4"]`,
+        );
         if (mehRadio) {
           (mehRadio as HTMLInputElement).checked = true;
         }
@@ -78,9 +99,6 @@ const { books } = Astro.props;
 </script>
 
 <style>
-  #all-books {
-    display: block;
-  }
   .books-container {
     display: flex;
     flex-wrap: wrap;
@@ -90,5 +108,65 @@ const { books } = Astro.props;
     padding-top: 0;
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  .description {
+    color: var(--contrast);
+  }
+
+  .help {
+    font-size: small;
+    margin-top: 0;
+  }
+  input[type="text"] {
+    padding: 5px;
+    width: 200px;
+    font-size: 16px;
+    border: 1px solid transparent;
+  }
+  input[type="text"]:invalid {
+    border-color: var(--error);
+  }
+  form:invalid .btn[type="submit"] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .btn {
+    padding: 10px 20px;
+    box-shadow: none;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--highlight);
+    color: var(--light-frgd);
+    font-weight: bold;
+  }
+
+  .btn:hover {
+    background-color: var(--secondary);
+    color: var(--dark-frgd);
+  }
+  form:invalid .btn:hover {
+    background-color: var(--highlight);
+    color: var(--light-frgd);
+  }
+  #scroll-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--highlight);
+    color: var(--dark-bkgd);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    z-index: 99;
+  }
+
+  #scroll-top:hover {
+    opacity: 1;
   }
 </style>

@@ -10,46 +10,105 @@ const { title } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="a record of the books we've read in Rubber Ducks Book Club" />
+		<meta
+			name="description"
+			content="vote for the books to read next in Rubber Ducks Book Club"
+		/>
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
+			rel="stylesheet"
+		/>
 		<title>{title}</title>
 	</head>
-	<body>
-		<header>
+	<body class="wrapper">
+		<header class="full-bleed">
 			<h1>2025 Voting Ballot - Rubber Ducks Book Club</h1>
 		</header>
-		<slot />
+		<main><slot /></main>
 	</body>
 	<svg style="display: none;">
-		<symbol id="star" viewBox="0 0 1024 1024"><polygon points="512 0 627 354 999 354 698 572 813 926 512 708 211 926 326 572 25 354 397 354 512 0"/></symbol>
-	  </svg>
+		<symbol id="star" viewBox="0 0 1024 1024"
+			><polygon
+				points="512 0 627 354 999 354 698 572 813 926 512 708 211 926 326 572 25 354 397 354 512 0"
+			></polygon></symbol
+		>
+	</svg>
 </html>
 <style is:global>
 	:root {
-		--accent: #942822;
-		--accent-light: #f2d6a6;
-		--accent-dark: #1d1c1c;
-		--accent-gradient: linear-gradient(
-			45deg,
-			var(--accent),
-			var(--accent-light) 30%,
-			white 60%
-		);
+		--background: #00473e;
+		--contrast: #fffffe;
+		--light-bkgd: #fdfefd;
+		--light-frgd: #2c3d3b;
+		--headline: #034e40;
+		--dark-headline: #fffffe;
+		--highlight: #facc13;
+		--secondary: #bb4df8;
+		--tertiary: #fc1404;
+		--error: #ff005c;
 	}
 	html {
-		font-family: system-ui, sans-serif;
-		color: var(--accent-dark);
-		background: #F5F4F4;
-		background-size: 224px;
-		padding: 0 2rem;
+		font-family: "Mulish", system-ui, sans-serif;
+		color: var(--contrast);
+		background: var(--background);
+		font-optical-sizing: auto;
+		font-weight: 400;
+		font-style: normal;
 	}
+	body {
+		width: 100vw;
+		height: 100vh;
+		overflow-x: hidden;
+		margin: 0;
+	}
+	.wrapper {
+		display: grid;
+		grid-template-columns:
+			1fr
+			20fr
+			1fr;
+	}
+
+	.wrapper > * {
+		grid-column: 2;
+	}
+
+	.full-bleed {
+		width: 100%;
+		grid-column: 1 / 4;
+	}
+	main {
+		margin-top: 2rem;
+	}
+	header {
+		color: var(--light-frgd);
+		background: var(--light-bkgd);
+		margin: 0;
+		width: 100%;
+		position: sticky;
+		top: 0;
+		box-shadow: 0 0 3px 1px var(--background);
+		padding: 5px 10px;
+		z-index: 2;
+	}
+
 	header h1 {
-		color: var(--accent);
+		color: var(--headline);
 		margin-bottom: 0.5rem;
+		text-wrap: balance;
 	}
 	header a {
-		color: var(--accent);
+		color: var(--headline);
+	}
+	.mulish-bold {
+		font-family: "Mulish", serif;
+		font-optical-sizing: auto;
+		font-weight: 700;
+		font-style: normal;
 	}
 </style>

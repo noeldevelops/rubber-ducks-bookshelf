@@ -9,9 +9,9 @@ interface Props {
 const { name } = Astro.props;
 ---
 
-<fieldset name={name} >
-    <legend class="label" 
-        >On a scale of 1 to 7 how much do you want to read this book?</legend
+<fieldset name={name}>
+    <legend class="label"
+        >On a scale of 1 to 7 how much do you want to read this?</legend
     >
     <div class="inputs">
         <Star name={name} value="7" />
@@ -31,15 +31,16 @@ const { name } = Astro.props;
 
 <style>
     fieldset {
-        margin: 1rem;
-        padding: 1rem;
+        margin-top: auto;
+        border: 1px solid var(--light-frgd);
     }
     fieldset:invalid {
-        border-color: red;
+        border-color: var(--error);
     }
     legend {
-        font-size: 12px;
+        font-size: 13px;
     }
+
     .inputs {
         display: flex;
         flex-direction: row-reverse;
@@ -51,7 +52,7 @@ const { name } = Astro.props;
         justify-content: space-between;
     }
     .hints > p {
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 700;
         display: inline;
         max-width: 28px;

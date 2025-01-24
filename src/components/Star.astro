@@ -4,11 +4,11 @@ interface Props {
     value: string;
 }
 
-const {  name, value } = Astro.props;
+const { name, value } = Astro.props;
 const id = `${name}-${value}`;
 ---
 
-<input class="star-radio" type="radio" {name} {id} {value} required>
+<input class="star-radio" type="radio" {name} {id} {value} required />
 <label for={id}>
     <svg>
         <title>{name}</title>
@@ -27,10 +27,12 @@ const id = `${name}-${value}`;
         width: 1px;
     }
     .star-radio:checked ~ label svg {
-        fill: gold;
+        fill: var(--highlight);
+        transition: fill 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .star-radio:not(:checked):hover ~ label svg {
-        fill: orange;
+        fill: gold;
+        opacity: 0.8;
     }
     label {
         display: block;
@@ -42,7 +44,8 @@ const id = `${name}-${value}`;
         max-width: 100%;
         max-height: 100%;
         fill: rgba(#000, 0.0625%);
-        stroke-width: 20;
-        stroke: #000;
+        stroke-width: 10;
+        stroke: var(--light-frgd);
     }
-</style> 
+</style>
+
