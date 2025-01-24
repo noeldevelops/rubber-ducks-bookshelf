@@ -27,12 +27,12 @@ const id = `${name}-${value}`;
         width: 1px;
     }
     .star-radio:checked ~ label svg {
-        fill: var(--highlight);
+        fill: var(--secondary);
         transition: fill 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .star-radio:not(:checked):hover ~ label svg {
-        fill: gold;
-        opacity: 0.8;
+        fill: var(--secondary);
+        opacity: .48;
     }
     label {
         display: block;
