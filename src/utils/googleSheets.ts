@@ -53,7 +53,7 @@ async function getAllBooks(): Promise<Book[]> {
         googleBooksUrl: row.get('Google Link'),
         subtitle: row.get('Subtitle') || '',
         description: row.get('Description') || '',
-        categories: (row.get('Categories') || '').split(',').map(c => c.trim()).filter(Boolean),
+        categories: (row.get('Categories') || '').split(',').map((c: string) => c.trim()).filter(Boolean),
         pubDate: row.get('Date Published') || '',
       }))
   } catch (error) {
