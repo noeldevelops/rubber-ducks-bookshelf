@@ -10,7 +10,17 @@ const { books } = Astro.props;
 ---
 
 <button id="scroll-top" aria-label="Scroll to top" title="Scroll to top"
-  >↑</button
+  ><svg height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+  viewBox="0 0 244.007 244.007" xml:space="preserve">
+<g>
+ <path style="fill:currentColor" d="M111.01,231.071c2.219,17.139,29.442,17.356,27.195,0c-4.623-35.675-4.302-71.545-4.128-107.432
+   c23.154,0.566,46.319,1.055,69.397-1.349c6.826-0.713,14.321-5.668,13.598-13.598c-4.444-48.826-61.38-63.882-83.446-102.048
+   c-4.417-7.636-15.137-8.877-21.354-2.752C82.015,33.72,58.387,69.537,32.079,102.731c-6.592,3.954-6.5,12.972-2.012,18.977
+   c3.617,5.575,10.41,8.692,16.268,5.167c20.092-3.285,40.298-3.927,60.548-3.758C106.708,159.178,106.365,195.228,111.01,231.071z
+    M70.299,97.254c16.1-21.408,32.042-43.012,50.154-62.674c7.441,8.561,16.138,16.013,24.873,23.399
+   c11.694,9.883,31.857,22.888,40.499,38.449C147.294,98.467,108.742,94.953,70.299,97.254z"/>
+</g>
+</svg></button
 >
 <form id="all-books" name="2025-votes" method="POST" data-netlify="true">
   <div>
@@ -22,9 +32,6 @@ const { books } = Astro.props;
     </p>
   </div>
   <div>
-    <button class="btn" id="submit-btn" type="submit" title="Save choices"
-      >Submit Vote</button
-    >
     <!-- For debugging/testing
       <button class="btn" type="button" id="auto-fill"
       >Auto-fill with 4 stars ("meh")</button
@@ -38,6 +45,9 @@ const { books } = Astro.props;
       {books.map((book) => <Card {book} />)}
     </div>
   </div>
+  <button class="btn" id="submit-btn" type="submit" title="Save choices"
+  >Submit Vote</button
+>
 </form>
 <script>
   const scrollButton = document.getElementById("scroll-top");
@@ -99,6 +109,9 @@ const { books } = Astro.props;
 </script>
 
 <style>
+  form {
+    padding-bottom: 2rem;
+  }
   .books-container {
     display: flex;
     flex-wrap: wrap;
@@ -106,8 +119,6 @@ const { books } = Astro.props;
     overflow-y: auto;
     padding-bottom: 1rem;
     padding-top: 0;
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
   .description {
     color: var(--contrast);
@@ -119,7 +130,7 @@ const { books } = Astro.props;
   }
   input[type="text"] {
     padding: 5px;
-    width: 200px;
+    width: 250px;
     font-size: 16px;
     border: 1px solid transparent;
   }
@@ -131,35 +142,35 @@ const { books } = Astro.props;
     opacity: 0.5;
   }
   .btn {
-    padding: 10px 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 200px;
     box-shadow: none;
     border: none;
-    border-radius: 3px;
-    background-color: var(--highlight);
-    color: var(--light-frgd);
+    border-radius: 5px;
+    background-color: var(--error);
+    color: var(--contrast);
     font-weight: bold;
+    font-size: large;
   }
 
   .btn:hover {
     background-color: var(--secondary);
-    color: var(--dark-frgd);
   }
   form:invalid .btn:hover {
-    background-color: var(--highlight);
-    color: var(--light-frgd);
+    background-color: var(--error);
   }
   #scroll-top {
     display: none;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: var(--highlight);
-    color: var(--dark-bkgd);
-    width: 40px;
-    height: 40px;
+    background: var(--contrast);
+    color: var(--headline);
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: none;
-    font-size: 20px;
     cursor: pointer;
     opacity: 0.8;
     transition: opacity 0.3s;
