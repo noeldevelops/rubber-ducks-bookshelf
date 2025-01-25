@@ -1,10 +1,12 @@
 # Rubber Ducks Bookshelf
 
-Website: https://rubber-ducks-book-club.netlify.app/
+## Voting Ballot Branch
 
-This is a static site built with [Astro](https://astro.build/) that displays the books we've read for the [Rubber Ducks](https://www.linkedin.com/company/rubber-ducks-nm) Book Club. It fetches the data at build time from [a Google Sheet](https://docs.google.com/spreadsheets/d/1xZfBupIyI0MezvG-8iACqHrzTrlNt4jqRYGuUZdrp-A/edit?usp=sharing) that we maintain to keep track of the books we've read in the past or are going to read in the future.
+Website: https://bookclubballot.netlify.app/
 
-The site deploys to Netlify automatically when changes are pushed to the `main` branch.
+This is a static site built with [Astro](https://astro.build/) that displays the books we've recommend to read for the 2025 [Rubber Ducks](https://www.linkedin.com/company/rubber-ducks-nm) Book Club. It fetches the data at build time from a Google Sheet.
+
+The site deploys to Netlify automatically when changes are pushed to the `ballot` branch.
 
 ## Contributing
 
