@@ -10,25 +10,36 @@ const { books } = Astro.props;
 ---
 
 <button id="scroll-top" aria-label="Scroll to top" title="Scroll to top"
-  ><svg height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-  viewBox="0 0 244.007 244.007" xml:space="preserve">
-<g>
- <path style="fill:currentColor" d="M111.01,231.071c2.219,17.139,29.442,17.356,27.195,0c-4.623-35.675-4.302-71.545-4.128-107.432
+  ><svg
+    height="20px"
+    width="20px"
+    version="1.1"
+    id="Capa_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 244.007 244.007"
+    xml:space="preserve"
+  >
+    <g>
+      <path
+        style="fill:currentColor"
+        d="M111.01,231.071c2.219,17.139,29.442,17.356,27.195,0c-4.623-35.675-4.302-71.545-4.128-107.432
    c23.154,0.566,46.319,1.055,69.397-1.349c6.826-0.713,14.321-5.668,13.598-13.598c-4.444-48.826-61.38-63.882-83.446-102.048
    c-4.417-7.636-15.137-8.877-21.354-2.752C82.015,33.72,58.387,69.537,32.079,102.731c-6.592,3.954-6.5,12.972-2.012,18.977
    c3.617,5.575,10.41,8.692,16.268,5.167c20.092-3.285,40.298-3.927,60.548-3.758C106.708,159.178,106.365,195.228,111.01,231.071z
     M70.299,97.254c16.1-21.408,32.042-43.012,50.154-62.674c7.441,8.561,16.138,16.013,24.873,23.399
-   c11.694,9.883,31.857,22.888,40.499,38.449C147.294,98.467,108.742,94.953,70.299,97.254z"/>
-</g>
-</svg></button
+   c11.694,9.883,31.857,22.888,40.499,38.449C147.294,98.467,108.742,94.953,70.299,97.254z"
+      ></path>
+    </g>
+  </svg></button
 >
 <form id="all-books" name="2025-votes" method="POST" data-netlify="true">
   <div>
     <label for="name">Name or Rubber Ducks Slack Handle:</label>
-    <input type="text" id="name" name="name" required minlength="2" />
+    <input disabled type="text" id="name" name="name" required minlength="2" />
     <p class="help">
       Only to prevent spam and duplicated submissions. How you vote will remain
-      anonymous. :) 
+      anonymous. :)
     </p>
   </div>
   <div>
@@ -45,9 +56,13 @@ const { books } = Astro.props;
       {books.map((book) => <Card {book} />)}
     </div>
   </div>
-  <button class="btn" id="submit-btn" type="submit" title="Save choices"
-  >Submit Vote</button
->
+  <button
+    disabled
+    class="btn"
+    id="submit-btn"
+    type="submit"
+    title="Save choices">Submit Vote</button
+  >
 </form>
 <script>
   const scrollButton = document.getElementById("scroll-top");
@@ -85,7 +100,7 @@ const { books } = Astro.props;
     // Get all radio groups by finding all radio inputs and grouping by name
     const radioGroups = document.querySelectorAll('input[type="radio"]');
     const groupNames = new Set(
-      [...radioGroups].map((radio) => radio.getAttribute("name")),
+      [...radioGroups].map((radio) => radio.getAttribute("name"))
     );
 
     // For each radio group name
@@ -98,7 +113,7 @@ const { books } = Astro.props;
       // If none are checked, select the "meh" (value 4) option
       if (isGroupEmpty) {
         const mehRadio = document.querySelector(
-          `input[type="radio"][name="${name}"][value="4"]`,
+          `input[type="radio"][name="${name}"][value="4"]`
         );
         if (mehRadio) {
           (mehRadio as HTMLInputElement).checked = true;

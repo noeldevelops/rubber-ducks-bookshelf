@@ -7,11 +7,12 @@ const recommendedBooks = await getAllBooks();
 ---
 
 <Layout title="Rubber Ducks Book Club">
-	{
-		recommendedBooks.length > 0 ? (
-			<List books={recommendedBooks} />
-		) : (
-			<p>Error: No books found.</p>
-		)
-	}
+  <h1>Voting is done! Form is no longer accepting submissions.</h1>
+  {
+    recommendedBooks.length > 0 ? (
+      <List books={recommendedBooks} />
+    ) : (
+      <p>Error: No books found.</p>
+    )
+  }
 </Layout>
